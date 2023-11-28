@@ -7,14 +7,8 @@ class MNISTDataset(Dataset):
 
         imgs = idx2numpy.convert_from_file(img_path)
         labels = idx2numpy.convert_from_file(label_path)
-
-        self.__data = {}
-
-        for idx, (img, label) in enumerate(zip(imgs, labels)):
-            self.__data[idx] = {
-                "image": img,
-                "label": label
-            }
+    
+        self.__data = [{"image": img,"label": label} for img, label in zip(imgs, labels)]
 
     def __len__(self):
         return len(self.__data)
