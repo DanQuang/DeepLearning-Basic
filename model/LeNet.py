@@ -31,4 +31,5 @@ class LeNet(nn.Module):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x = x.unsqueeze(dim = 1)
         return self.dense(self.block_2(self.block_1(x)))

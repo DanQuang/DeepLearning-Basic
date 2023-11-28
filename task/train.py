@@ -59,7 +59,7 @@ class Train_Task:
             valid_precision=0.
             valid_recall=0.
 
-            for X, y in tqdm(enumerate(train)):
+            for batch, (X, y) in tqdm(enumerate(train)):
                 self.optim.zero_grad()
                 X, y = X.to(self.device), y.to(self.device)
 
