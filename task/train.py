@@ -59,7 +59,7 @@ class Train_Task:
             valid_precision=0.
             valid_recall=0.
 
-            for batch, (X, y) in tqdm(enumerate(train)):
+            for _, (X, y) in tqdm(enumerate(train)):
                 self.optim.zero_grad()
                 X, y = X.to(self.device), y.to(self.device)
 
@@ -73,7 +73,7 @@ class Train_Task:
                 self.optim.step()
 
             with torch.inference_mode():
-                for X, y in tqdm(enumerate(dev)):
+                for _, (X, y) in tqdm(enumerate(dev)):
                     X, y = X.to(self.device), y.to(self.device)
                     y_logits = self.model(X)
                     y_preds = y_logits.argmax(dim = -1)
