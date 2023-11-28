@@ -14,12 +14,12 @@ def main(config_path: Text) -> None:
         config = yaml.safe_load(f)
 
     logging.info("Training started...")
-    Train_Task(config)
+    Train_Task(config).train()
 
     logging.info("Train complete")
 
     logging.info("Evaluating...")
-    Test_Task(config)
+    Test_Task(config).predict()
     logging.info("Task done!!!")
 
 if __name__ == "__main__":
