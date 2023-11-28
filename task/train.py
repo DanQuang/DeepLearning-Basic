@@ -91,7 +91,7 @@ class Train_Task:
                 valid_recall /= len(dev)
                 valid_f1 /= len(dev)
 
-                print(f"Epoch {epoch + 1} / {initial_epoch + self.num_epochs}")
+                print(f"Epoch {epoch + 1}/{initial_epoch + self.num_epochs}")
                 print(f"Train loss: {train_loss:.5f}")
                 print(f"valid acc: {valid_acc:.4f} | valid f1: {valid_f1:.4f} | valid precision: {valid_precision:.4f} | valid recall: {valid_recall:.4f}")
 

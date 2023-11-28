@@ -31,7 +31,7 @@ class Test_Task:
 
             self.model.eval()
             with torch.inference_mode():
-                for X, y in tqdm(enumerate(test)):
+                for _, (X, y) in tqdm(enumerate(test)):
                     X, y = X.to(self.device), y.to(self.device)
                     y_logits = self.model(X)
                     y_preds = y_logits.argmax(dim = -1)
