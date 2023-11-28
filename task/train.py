@@ -85,48 +85,48 @@ class Train_Task:
                     valid_recall += recall
                     valid_f1 += f1
 
-            train_loss /= len(train)
-            valid_acc /= len(dev)
-            valid_precision /= len(dev)
-            valid_recall /= len(dev)
-            valid_f1 /= len(dev)
+                train_loss /= len(train)
+                valid_acc /= len(dev)
+                valid_precision /= len(dev)
+                valid_recall /= len(dev)
+                valid_f1 /= len(dev)
 
-            print(f"Epoch {epoch + 1} / {initial_epoch + self.num_epochs}")
-            print(f"Train loss: {train_loss:.5f}")
-            print(f"valid acc: {valid_acc:.4f} | valid f1: {valid_f1:.4f} | valid precision: {valid_precision:.4f} | valid recall: {valid_recall:.4f}")
+                print(f"Epoch {epoch + 1} / {initial_epoch + self.num_epochs}")
+                print(f"Train loss: {train_loss:.5f}")
+                print(f"valid acc: {valid_acc:.4f} | valid f1: {valid_f1:.4f} | valid precision: {valid_precision:.4f} | valid recall: {valid_recall:.4f}")
 
-            if self.best_metric == 'accuracy':
-                score= valid_acc
-            if self.best_metric == 'f1':
-                score= valid_f1
-            if self.best_metric == 'precision':
-                score= valid_precision
-            if self.best_metric == 'recall':
-                score= valid_recall
+                if self.best_metric == 'accuracy':
+                    score= valid_acc
+                if self.best_metric == 'f1':
+                    score= valid_f1
+                if self.best_metric == 'precision':
+                    score= valid_precision
+                if self.best_metric == 'recall':
+                    score= valid_recall
 
-            # save last model
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': self.model.state_dict(),
-                'optim_state_dict': self.optim.state_dict(),
-                'score': score
-            }, os.path.join(self.save_path, last_model))
-
-            # save the best model
-            if epoch > 0 and score < best_score:
-              threshold += 1
-            else:
-              threshold = 0
-
-            if score > best_score:
-                best_score = score
+                # save last model
                 torch.save({
                     'epoch': epoch,
                     'model_state_dict': self.model.state_dict(),
                     'optim_state_dict': self.optim.state_dict(),
-                    'score':score
-                }, os.path.join(self.save_path, best_model))
-                print(f"Saved the best model with {self.best_metric} of {score:.4f}")
+                    'score': score
+                }, os.path.join(self.save_path, last_model))
+
+                # save the best model
+                if epoch > 0 and score < best_score:
+                    threshold += 1
+                else:
+                    threshold = 0
+
+                if score > best_score:
+                    best_score = score
+                    torch.save({
+                        'epoch': epoch,
+                        'model_state_dict': self.model.state_dict(),
+                        'optim_state_dict': self.optim.state_dict(),
+                        'score':score
+                    }, os.path.join(self.save_path, best_model))
+                    print(f"Saved the best model with {self.best_metric} of {score:.4f}")
 
             # early stopping
             if threshold >= self.patience:
