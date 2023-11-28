@@ -20,5 +20,9 @@ class MNISTDataset(Dataset):
         return len(self.__data)
     
     def __getitem__(self, idx):
-        return self.__data[idx]
-    
+        if isinstance(idx, slice):
+            start, stop, step = idx.indices(len(self))
+            selected_data = [{"image": self.__data[i]["image"], "label": self.__data[i]["label"]} for i in range(start, stop, step)]
+            return selected_data
+        else:
+            return self.__data[idx]
