@@ -12,7 +12,7 @@ class Test_Task:
         self.model_name = config["model"]
         self.num_classes = config["num_classes"]
         if self.model_name == "LeNet":
-            self.model = LeNet(config).to(self.device)
+            self.model = LeNet.LeNet(config).to(self.device)
 
         self.dataloader = load_data.Load_Data(config)
 
