@@ -1,6 +1,10 @@
 from data_utils import MNISTDataset, utils
 from torch.utils.data import DataLoader
+import torch
 import torchvision.transforms as transforms
+
+def unsqueeze(x: torch.Tensor) ->torch.Tensor:
+    return x.unsqueeze(0)
 
 class Load_Data:
     def __init__(self, config):
@@ -20,6 +24,7 @@ class Load_Data:
         self.image_C = config["image_C"]
 
         self.transforms = transforms.Compose([
+            transforms.Lambda(unsqueeze),
             transforms.Resize((self.image_H, self.image_W)),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])

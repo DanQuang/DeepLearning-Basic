@@ -11,7 +11,7 @@ image_W: 224
 image_C: 1
 num_classes: 10
 patience: 5
-model: LeNet # LeNet, AlexNet
+model: VGG # LeNet, AlexNet, VGG
 learning_rate: 0.001
 num_epochs: 100
 best_metric: accuracy # accuracy, f1, precision, recall
