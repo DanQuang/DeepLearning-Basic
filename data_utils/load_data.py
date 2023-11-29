@@ -19,11 +19,10 @@ class Load_Data:
         self.image_W = config["image_W"]
         self.image_C = config["image_C"]
 
-        self.transforms = transforms.Compose(
-            transforms.Resize((self.image_H, self.image_w)),
-            transforms.ToTensor(),
+        self.transforms = transforms.Compose([
+            transforms.Resize((self.image_H, self.image_W)),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        )
+        ])
 
     def load_train_dev(self):
         train_dataset = MNISTDataset.MNISTDataset(self.transforms, self.train_img_path, self.train_label_path)
