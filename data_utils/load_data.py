@@ -25,8 +25,8 @@ class Load_Data:
 
         self.transforms = transforms.Compose([
             transforms.Lambda(unsqueeze),
-            transforms.Resize((self.image_H, self.image_W)),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            transforms.Resize((self.image_H, self.image_W), antialias= True),
+            transforms.Normalize(mean=[0.485], std=[0.229])
         ])
 
     def load_train_dev(self):
