@@ -16,7 +16,7 @@ class Load_Data:
         self.test_batch = config["test_batch"]
 
         self.image_H = config["image_H"]
-        self.image_w = config["image_w"]
+        self.image_W = config["image_W"]
         self.image_C = config["image_C"]
 
         self.transforms = transforms.Compose(
