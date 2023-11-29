@@ -6,6 +6,9 @@ import torchvision.transforms as transforms
 def unsqueeze(x: torch.Tensor) ->torch.Tensor:
     return x.unsqueeze(0)
 
+def to_dtype(x: torch.Tensor):
+    return x.to(torch.float32)
+
 class Load_Data:
     def __init__(self, config):
         # train
@@ -26,6 +29,7 @@ class Load_Data:
         self.transforms = transforms.Compose([
             transforms.Lambda(unsqueeze),
             transforms.Resize((self.image_H, self.image_W), antialias= True),
+            transforms.Lambda(to_dtype),
             transforms.Normalize(mean=[0.485], std=[0.229])
         ])
 

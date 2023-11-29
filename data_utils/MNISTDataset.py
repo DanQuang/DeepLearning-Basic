@@ -9,7 +9,7 @@ class MNISTDataset(Dataset):
         imgs = idx2numpy.convert_from_file(img_path)
         labels = idx2numpy.convert_from_file(label_path)
     
-        self.__data = [{"image": transform(torch.tensor(img).type(torch.float32)) ,"label": torch.tensor(label)} for img, label in zip(imgs, labels)]
+        self.__data = [{"image": transform(torch.tensor(img)) ,"label": torch.tensor(label)} for img, label in zip(imgs, labels)]
 
     def __len__(self):
         return len(self.__data)
