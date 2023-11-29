@@ -1,5 +1,6 @@
 from data_utils import MNISTDataset, utils
 from torch.utils.data import DataLoader
+import torchvision.transforms as transforms
 
 class Load_Data:
     def __init__(self, config):
@@ -14,8 +15,18 @@ class Load_Data:
         self.dev_batch = config["dev_batch"]
         self.test_batch = config["test_batch"]
 
+        self.image_H = config["image_H"]
+        self.image_w = config["image_w"]
+        self.image_C = config["image_C"]
+
+        self.transforms = transforms.Compose(
+            transforms.Resize((self.image_H, self.image_w)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        )
+
     def load_train_dev(self):
-        train_dataset = MNISTDataset.MNISTDataset(self.train_img_path, self.train_label_path)
+        train_dataset = MNISTDataset.MNISTDataset(self.transforms, self.train_img_path, self.train_label_path)
         idx = int(0.8*len(train_dataset))
         dev_dataset = train_dataset[idx:]
         train_dataset = train_dataset[:idx]
@@ -26,6 +37,6 @@ class Load_Data:
         return train_dataloader, dev_dataloader
     
     def load_test(self):
-        test_dataset = MNISTDataset.MNISTDataset(self.test_img_path, self.test_label_path)
+        test_dataset = MNISTDataset.MNISTDataset(self.transforms, self.test_img_path, self.test_label_path)
         test_dataloader = DataLoader(test_dataset, self.train_batch, shuffle= False, collate_fn= utils.collate_fn)
         return test_dataloader
