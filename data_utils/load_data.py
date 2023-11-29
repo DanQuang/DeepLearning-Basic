@@ -7,7 +7,7 @@ def unsqueeze(x: torch.Tensor) ->torch.Tensor:
     return x.unsqueeze(0)
 
 def to_dtype(x: torch.Tensor):
-    return x.to(torch.float32)
+    return x.to(torch.float)
 
 class Load_Data:
     def __init__(self, config):

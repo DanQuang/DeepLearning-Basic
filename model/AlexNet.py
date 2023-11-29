@@ -5,16 +5,13 @@ from torch import nn
 class AlexNet(nn.Module):
     def __init__(self, config):
         super().__init__()
-        self.image_H = config["image_H"]
-        self.image_W = config["image_W"]
-        self.image_C = config["image_C"]
         self.num_classes = config["num_classes"]
 
         # Custom block_1
         self.block_1 = nn.Sequential(
-            nn.LazyConv2d(out_channels= 96, kernel_size= 3, stride= 1, padding= 1), # kernel_size = 11, stride = 5
+            nn.LazyConv2d(out_channels= 96, kernel_size= 11, stride= 5, padding= 1), # kernel_size = 11, stride = 5
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size= 3, stride= 2) # kernel_size= 5
+            nn.MaxPool2d(kernel_size= 5, stride= 2) # kernel_size= 5
         )
 
         self.block_2 = nn.Sequential(

@@ -5,19 +5,16 @@ from torch import nn
 class LeNet(nn.Module):
     def __init__(self, config):
         super().__init__()
-        self.image_H = config["image_H"]
-        self.image_W = config["image_W"]
-        self.image_C = config["image_C"]
         self.num_classes = config["num_classes"]
 
         self.block_1 = nn.Sequential(
-            nn.Conv2d(in_channels= self.image_C, out_channels= 6, kernel_size= 5, padding= 2),
+            nn.LazyConv2d(out_channels= 6, kernel_size= 5, padding= 2),
             nn.ReLU(),
             nn.AvgPool2d(kernel_size= 2, stride= 2)
         )
 
         self.block_2 = nn.Sequential(
-            nn.Conv2d(in_channels= 6, out_channels= 16, kernel_size= 5, padding= 0),
+            nn.LazyConv2d(out_channels= 16, kernel_size= 5, padding= 0),
             nn.ReLU(),
             nn.AvgPool2d(kernel_size= 2, stride= 2)
         )
