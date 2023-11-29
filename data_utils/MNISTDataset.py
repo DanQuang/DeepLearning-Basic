@@ -8,8 +8,11 @@ class MNISTDataset(Dataset):
 
         imgs = idx2numpy.convert_from_file(img_path)
         labels = idx2numpy.convert_from_file(label_path)
+
+        imgs = torch.tensor(imgs, dtype= torch.float32)
+        labels = torch.tensor(labels, dtype=torch.long)
     
-        self.__data = [{"image": transform(torch.tensor(img)) ,"label": torch.tensor(label)} for img, label in zip(imgs, labels)]
+        self.__data = [{"image": transform(img) ,"label": label} for img, label in zip(imgs, labels)]
 
     def __len__(self):
         return len(self.__data)
