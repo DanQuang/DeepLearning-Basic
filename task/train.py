@@ -2,7 +2,7 @@ import torch
 from torch import nn, optim
 import os
 from tqdm.auto import tqdm
-from model import LeNet
+from model import LeNet, AlexNet
 from data_utils import load_data
 from evaluate import evaluate
 
@@ -18,7 +18,8 @@ class Train_Task:
         self.num_classes = config["num_classes"]
         if self.model_name == "LeNet":
             self.model = LeNet.LeNet(config).to(self.device)
-
+        elif self.model_name == "AlexNet":
+            self.model = AlexNet.AlexNet(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
         self.loss = nn.CrossEntropyLoss()
         self.optim = optim.SGD(self.model.parameters(), lr= self.learning_rate, momentum= 0.5)

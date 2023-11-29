@@ -1,7 +1,7 @@
 import torch
 import os
 from tqdm.auto import tqdm
-from model import LeNet
+from model import LeNet, AlexNet
 from data_utils import load_data
 from evaluate import evaluate
 
@@ -13,7 +13,8 @@ class Test_Task:
         self.num_classes = config["num_classes"]
         if self.model_name == "LeNet":
             self.model = LeNet.LeNet(config).to(self.device)
-
+        elif self.model_name == "AlexNet":
+            self.model = AlexNet.AlexNet(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
 
     def predict(self):
