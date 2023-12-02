@@ -2,7 +2,7 @@ import torch
 from torch import nn, optim
 import os
 from tqdm.auto import tqdm
-from model import LeNet, AlexNet, VGG
+from model import LeNet, AlexNet, VGG, NiN
 from data_utils import load_data
 from evaluate import evaluate
 
@@ -23,6 +23,8 @@ class Train_Task:
         elif self.model_name == "VGG":
             # VGG-11
             self.model = VGG.VGG(arch=((1, 64), (1, 128), (2, 256), (2, 512), (2, 512)), config=config).to(self.device)
+        elif self.model_name == "NiN":
+            self.model = NiN.NiN(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
         self.loss = nn.CrossEntropyLoss()
         self.optim = optim.SGD(self.model.parameters(), lr= self.learning_rate, momentum= 0.5)
