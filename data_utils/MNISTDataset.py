@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 import idx2numpy
 
 class MNISTDataset(Dataset):
-    def __init__(self,transform, img_path, label_path):
+    def __init__(self, img_path, label_path):
         super().__init__()
 
         imgs = idx2numpy.convert_from_file(img_path)
@@ -12,7 +12,7 @@ class MNISTDataset(Dataset):
         imgs = torch.tensor(imgs, dtype= torch.float32)
         labels = torch.tensor(labels, dtype=torch.long)
     
-        self.__data = [{"image": transform(img) ,"label": label} for img, label in zip(imgs, labels)]
+        self.__data = [{"image": img ,"label": label} for img, label in zip(imgs, labels)]
 
     def __len__(self):
         return len(self.__data)

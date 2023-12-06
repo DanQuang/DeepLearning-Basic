@@ -23,14 +23,8 @@ class Load_Data:
         self.image_W = config["image_W"]
         self.image_C = config["image_C"]
 
-        self.transforms = transforms.Compose([
-            transforms.Lambda(unsqueeze),
-            transforms.Resize((self.image_H, self.image_W), antialias= True),
-            transforms.Normalize(mean=[0.485], std=[0.229])
-        ])
-
     def load_train_dev(self):
-        train_dataset = MNISTDataset.MNISTDataset(self.transforms, self.train_img_path, self.train_label_path)
+        train_dataset = MNISTDataset.MNISTDataset(self.train_img_path, self.train_label_path)
         idx = int(0.8*len(train_dataset))
         dev_dataset = train_dataset[idx:]
         train_dataset = train_dataset[:idx]
