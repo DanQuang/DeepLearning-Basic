@@ -9,7 +9,7 @@ def vgg_block(num_convs, out_channels):
     return nn.Sequential(*layers)
 
 
-# VFFNet
+# VGGNet
 class VGG(nn.Module):
     def __init__(self, arch, config):
         super().__init__()
