@@ -31,6 +31,6 @@ class Load_Data:
         return train_dataloader, dev_dataloader
     
     def load_test(self):
-        test_dataset = MNISTDataset.MNISTDataset(self.transforms, self.test_img_path, self.test_label_path)
+        test_dataset = MNISTDataset.MNISTDataset(self.test_img_path, self.test_label_path)
         test_dataloader = DataLoader(test_dataset, self.train_batch, shuffle= False, collate_fn= utils.collate_fn)
         return test_dataloader
