@@ -19,10 +19,6 @@ class Load_Data:
         self.dev_batch = config["dev_batch"]
         self.test_batch = config["test_batch"]
 
-        self.image_H = config["image_H"]
-        self.image_W = config["image_W"]
-        self.image_C = config["image_C"]
-
     def load_train_dev(self):
         train_dataset = MNISTDataset.MNISTDataset(self.train_img_path, self.train_label_path)
         idx = int(0.8*len(train_dataset))
