@@ -15,7 +15,8 @@ class Train_Task:
         self.patience = config["patience"]
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.num_classes = config["num_classes"]
-        self.model = Model(config).to(self.device)
+        self.model_name = config["model"]
+        self.model = Model.Model(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
         self.loss = nn.CrossEntropyLoss()
         self.optim = optim.SGD(self.model.parameters(), lr= self.learning_rate, momentum= 0.5)

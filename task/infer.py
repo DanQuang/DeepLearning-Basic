@@ -10,7 +10,8 @@ class Test_Task:
         self.save_path = config["save_path"]
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.num_classes = config["num_classes"]
-        self.model = Model(config).to(self.device)
+        self.model_name = config["model"]
+        self.model = Model.Model(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
 
     def predict(self):
