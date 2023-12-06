@@ -17,7 +17,7 @@ class Inception(nn.Module):
         self.b3_2 = nn.LazyConv2d(c3[1], kernel_size= 5, padding= 2)
 
         # branch 4
-        self.b4_1 = nn.MaxPool2d(kernel_size= 3, padding= 1)
+        self.b4_1 = nn.MaxPool2d(kernel_size= 3, stride= 1, padding= 1)
         self.b4_2 = nn.LazyConv2d(c4, kernel_size= 1)
 
     def forward(self, x):
@@ -37,6 +37,8 @@ class GoogLeNet(nn.Module):
                                  nn.LazyLinear(self.num_classes))
         
     def forward(self, x):
+        if (x.dim() == 3):
+            x = x.unsqueeze(dim = 1)
         return self.net(x)
 
     def b1(self):
