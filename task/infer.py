@@ -1,7 +1,7 @@
 import torch
 import os
 from tqdm.auto import tqdm
-from model import LeNet, AlexNet, VGG
+from model import Model
 from data_utils import load_data
 from evaluate import evaluate
 
@@ -9,15 +9,8 @@ class Test_Task:
     def __init__(self, config):
         self.save_path = config["save_path"]
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model_name = config["model"]
         self.num_classes = config["num_classes"]
-        if self.model_name == "LeNet":
-            self.model = LeNet.LeNet(config).to(self.device)
-        elif self.model_name == "AlexNet":
-            self.model = AlexNet.AlexNet(config).to(self.device)
-        elif self.model_name == "VGG":
-            # VGG-11
-            self.model = VGG.VGG(arch=((1, 64), (1, 128), (2, 256), (2, 512), (2, 512)), config=config).to(self.device)
+        self.model = Model(config).to(self.device)
         self.dataloader = load_data.Load_Data(config)
 
     def predict(self):
